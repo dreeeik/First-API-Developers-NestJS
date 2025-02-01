@@ -8,10 +8,12 @@ import {
   Delete,
   HttpCode,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { DevelopersService } from './developers.service';
 import { CreateDeveloperDto } from './dto/create-developer.dto';
 import { UpdateDeveloperDto } from './dto/update-developer.dto';
+import { FilterStackDeveloperDto } from './dto/filter-stack-developer-dto';
 
 @Controller('developers')
 export class DevelopersController {
@@ -23,8 +25,8 @@ export class DevelopersController {
   }
 
   @Get()
-  findAll() {
-    return this.developersService.findAll();
+  findAll(@Query() filterStack: FilterStackDeveloperDto) {
+    return this.developersService.findAll(filterStack);
   }
 
   @Get(':id')

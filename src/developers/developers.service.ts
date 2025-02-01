@@ -4,6 +4,7 @@ import { UpdateDeveloperDto } from './dto/update-developer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { nanoid } from 'nanoid';
 import { PasswordUtilsProvider } from 'src/utils/password-utis';
+import { FilterStackDeveloperDto } from './dto/filter-stack-developer-dto';
 
 @Injectable()
 export class DevelopersService {
@@ -24,8 +25,12 @@ export class DevelopersService {
     });
   }
 
-  findAll() {
-    return this.prisma.developers.findMany();
+  findAll(filterStack: FilterStackDeveloperDto) {
+    const { stack } = filterStack;
+    const developer = this.prisma.developers.findMany({
+      where: stack ? { stack } : {},
+    });
+    return developer;
   }
 
   findOne(id: string) {

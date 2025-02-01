@@ -1,5 +1,5 @@
 import { Stack } from '@prisma/client';
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
 
 export class CreateDeveloperDto {
   @IsString()
@@ -11,6 +11,6 @@ export class CreateDeveloperDto {
   @IsString()
   password: string;
 
-  @IsString()
+  @IsEnum(Stack)
   stack: Stack;
 }
